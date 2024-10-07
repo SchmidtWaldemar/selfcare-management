@@ -1,0 +1,2 @@
+# selfcare-management
+Selbsthilfegruppen organisieren
