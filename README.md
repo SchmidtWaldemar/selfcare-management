@@ -1,2 +1,5 @@
-# selfcare-management
-Selbsthilfegruppen organisieren
+# Selbsthilfegruppen organisieren
+Kurzbeschreibung
+
+## Weitere Schritte
+Details
