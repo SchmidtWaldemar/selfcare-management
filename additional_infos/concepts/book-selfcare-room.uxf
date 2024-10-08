@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>760</x>
+      <y>570</y>
+      <w>90</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>_umletcode=
+fg='black';
+bg='#222222';
+drawArc(0,0,width,height*2/5,0,180,true) //Parameters (x, y, width, height, start, extent, open)
+bg='bg';
+drawArc(0,0,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+fg='#929292';
+bg='#222222';
+drawRectangle(0,(height+0.5)/5,width,(height)*3/5-1)  //Parameters (x, y, width, height)
+fg='black'
+drawLine(0,height/5,0,height*4/5) //Parameters (x1, y1, x2, y2)
+drawLine(width,height/5,width,height*4/5) //Parameters (x1, y1, x2, y2)
+bg='bg';
+drawArc(0,height*1/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+bg='#222222'
+drawArc(0,height*3/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>760</x>
+      <y>150</y>
+      <w>90</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>// Text Element
+// DB Symbol
+_umletcode=
+fg='black';
+bg='#222222';
+drawArc(0,0,width,height*2/5,0,180,true) //Parameters (x, y, width, height, start, extent, open)
+bg='bg';
+drawArc(0,0,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+fg='#929292';
+bg='#222222';
+drawRectangle(0,(height+0.5)/5,width,(height)*3/5-1)  //Parameters (x, y, width, height)
+fg='black'
+drawLine(0,height/5,0,height*4/5) //Parameters (x1, y1, x2, y2)
+drawLine(width,height/5,width,height*4/5) //Parameters (x1, y1, x2, y2)
+bg='bg';
+drawArc(0,height*1/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+bg='#222222'
+drawArc(0,height*3/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>400</x>
+      <y>40</y>
+      <w>1140</w>
+      <h>820</h>
+    </coordinates>
+    <panel_attributes>lokaler Bereich</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>170</x>
+      <y>310</y>
+      <w>160</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>customelement=
+
+drawCircle(77, 65, 40) fg=blue lw=2 
+
+drawRectangle(90,40,8,8) fg=blue bg=white lw=2 transparency=0
+drawLine(90,44,70,44) fg=blue lw=2
+drawRectangle(90,60,8,8) fg=blue bg=white lw=2 transparency=0
+drawLine(90,64,80,64) fg=blue lw=2
+drawRectangle(90,80,8,8) fg=blue bg=white lw=2 transparency=0
+drawLine(90,84,70,84) fg=blue lw=2
+
+drawLine(70,72,70,83) fg=blue lw=2 
+drawLine(70,55,70,45) fg=blue lw=2
+
+drawLine(59,45,54,51) fg=blue lw=2
+drawLine(59,45,64,51) fg=blue lw=2
+
+drawLine(60,85,60,45) fg=blue lw=2
+
+drawLine(59,84,56,79) fg=blue lw=2
+drawLine(59,84,63,79) fg=blue lw=2
+
+drawLine(66,64,70,60) fg=blue lw=2
+drawLine(73,64,67,64) fg=blue lw=2
+drawLine(66,64,70,68) fg=blue lw=2
+
+drawLine(52,59,55,63) fg=blue lw=2
+drawLine(48,63,55,63) fg=blue lw=2
+drawLine(51,68,55,63) fg=blue lw=2
+
+drawText("API Gateway",35,125,left)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>540</y>
+      <w>110</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>MySQL DB
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>120</y>
+      <w>110</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>PostgreSQL DB
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>0</x>
+      <y>290</y>
+      <w>210</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>//Text Element
+_umletcode=
+
+
+drawText("Angular UI", 60, 165, left); lw=2;
+drawArc(85, 20, 120, 95, 137, 125, false); bg=red; lw=0; transparency=0;
+drawArc(85, 20, 120, 95, 137, 125, false); bg=red; lw=0; transparency=0;
+drawArc(0, 15, 110, 90, 275, 120, false); bg=red; lw=0; transparency=0;
+drawArc(53, 77, 89, 195, 28, 120, false); bg=red; lw=0; transparency=0;
+
+drawLine(110,135,100,10); fg="white"; lw=5; transparency=0;
+drawLine(120,105,100,60); fg="white"; lw=7; transparency=0;
+drawLine(80,105,100,60); fg="white"; lw=7; transparency=0;
+drawLine(110,85,90,85); fg="white"; lw=7; transparency=0;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>430</x>
+      <y>500</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>//Text Element
+customelement=
+drawRectangleRound(10,10,width-20,height-20,10) //fg= bg= lt= lw= //Parameters (x, y, width, height)
+drawArc(25,20,40,40,130,360, true) lw=2  fg=white bg=green  transparency=50
+drawArc(30,25,30,30,130,280, true) lw=2  fg=white bg=white transparency=100
+
+drawLine(45,25,45,40) fg=white lw=2
+
+drawText("Gruppe", 75, 45, left)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>370</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>430</x>
+      <y>200</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>//Text Element
+customelement=
+drawRectangleRound(10,10,width-20,height-20,10) //fg= bg= lt= lw= //Parameters (x, y, width, height)
+drawArc(25,20,40,40,130,360, true) lw=2  fg=white bg=green  transparency=50
+drawArc(30,25,30,30,130,280, true) lw=2  fg=white bg=white transparency=100
+
+drawLine(45,25,45,40) fg=white lw=2
+
+drawText("Teilnehmer", 75, 45, left)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>240</y>
+      <w>170</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m2=/participants
+lw=2
+fg=blue</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>380</y>
+      <w>170</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m2=/groups
+lw=2
+fg=blue</panel_attributes>
+    <additional_attributes>150.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>180</y>
+      <w>150</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;50.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>200</y>
+      <w>150</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;50.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>520</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>540</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>1300</x>
+      <y>330</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>//Text Element
+customelement=
+drawRectangleRound(10,10,width-20,height-20,10) //fg= bg= lt= lw= //Parameters (x, y, width, height)
+drawArc(25,20,40,40,130,360, true) lw=2  fg=white bg=green  transparency=50
+drawArc(30,25,30,30,130,280, true) lw=2  fg=white bg=white transparency=100
+
+drawLine(45,25,45,40) fg=white lw=2
+
+drawText("Benachrichtigung", 75, 45, left)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>1360</x>
+      <y>530</y>
+      <w>90</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>_umletcode=
+fg='black';
+bg='#222222';
+drawArc(0,0,width,height*2/5,0,180,true) //Parameters (x, y, width, height, start, extent, open)
+bg='bg';
+drawArc(0,0,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+fg='#929292';
+bg='#222222';
+drawRectangle(0,(height+0.5)/5,width,(height)*3/5-1)  //Parameters (x, y, width, height)
+fg='black'
+drawLine(0,height/5,0,height*4/5) //Parameters (x1, y1, x2, y2)
+drawLine(width,height/5,width,height*4/5) //Parameters (x1, y1, x2, y2)
+bg='bg';
+drawArc(0,height*1/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+bg='#222222'
+drawArc(0,height*3/5,width,height*2/5,180,180,true)  //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1350</x>
+      <y>500</y>
+      <w>110</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Mongo DB
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1380</x>
+      <y>400</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1410</x>
+      <y>400</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>980</x>
+      <y>310</y>
+      <w>200</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>_umletcode=
+drawArc(10,31,50,61,100,170,true); transparency=100;
+
+drawText("Nachrichten Broker", 25, 55, left); lw=2;
+
+
+
+drawLine(29,31,184,30); fg="black"; lw=1;
+drawLine(29,92,184,92); fg="black"; lw=1;
+
+drawCircle(200, 61, 30);
+
+drawRectangle(45,62,40,25); transparency=0; lw=0;
+drawLine(25,22,20,25); fg="black"; transparency=0; lw=1;
+drawLine(65,69,45,62); fg="black"; transparency=0; lw=1;
+drawLine(65,69,85,62); fg="black"; transparency=0; lw=1;
+
+drawRectangle(105,62,40,25); transparency=100; lw=0;
+drawLine(25,22,20,25); fg="black"; transparency=0; lw=1;
+drawLine(125,69,145,62); fg="black"; transparency=0; lw=1;
+drawLine(125,69,105,62); fg="black"; transparency=0; lw=1;
+
+
+drawText("Kafka", 85, 115, left); lw=2;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>380</y>
+      <w>380</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=2
+fg=#23454
+m1=\n\nAsync (Push)\n\nAnmeldung Bestätigung</panel_attributes>
+    <additional_attributes>360.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>250</y>
+      <w>380</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=2
+fg=#23454
+m2=\n\nAsync (Push)\n\nTeilnahme Bestätigung</panel_attributes>
+    <additional_attributes>360.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1170</x>
+      <y>360</y>
+      <w>200</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=2
+fg=#23454
+m1=\nAsync (Pull)\n\nBestätigung Empfang</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>90</y>
+      <w>1100</w>
+      <h>600</h>
+    </coordinates>
+    <panel_attributes>
+bg=white
+layer=0
+lt=.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>120</x>
+      <y>180</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>_umletcode=
+drawText("externer Bereich \n(Internet)", width/2, 18, center) //fg= //Parameters (text, x, y, horizontal alignment)
+
+    </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>610</x>
+      <y>760</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>//Text Element
+customelement=
+drawRectangleRound(10,10,width-20,height-20,10) //fg= bg= lt= lw= //Parameters (x, y, width, height)
+drawArc(25,20,40,40,130,360, true) lw=2  fg=white bg=green  transparency=50
+drawArc(30,25,30,30,130,280, true) lw=2  fg=white bg=white transparency=100
+
+drawLine(45,25,45,40) fg=white lw=2
+
+drawText("Discovery Server", 75, 45, left)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>1110</x>
+      <y>760</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>//Text Element
+customelement=
+drawRectangleRound(10,10,width-20,height-20,10) //fg= bg= lt= lw= //Parameters (x, y, width, height)
+drawArc(25,20,40,40,130,360, true) lw=2  fg=white bg=green  transparency=50
+drawArc(30,25,30,30,130,280, true) lw=2  fg=white bg=white transparency=100
+
+drawLine(45,25,45,40) fg=white lw=2
+
+drawText("Config Server", 75, 45, left)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>710</x>
+      <y>680</y>
+      <w>180</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1
+fg=black
+m2=Service Registrierung</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1200</x>
+      <y>680</y>
+      <w>180</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1
+fg=black
+m2=Service Konfiguration</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>790</y>
+      <w>340</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1
+fg=black
+m2=Parameter Bereitstellung</panel_attributes>
+    <additional_attributes>10.0;10.0;320.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>260</y>
+      <w>30</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=2
+fg=orange</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>10</y>
+      <w>530</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>halign=left
+style=wordwrap
+*Selbsthilfe Gruppen Management*
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

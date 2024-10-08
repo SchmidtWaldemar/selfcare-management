@@ -1,0 +1,12 @@
+target/
+build/
+classes/
+.classpath
+.project
+.settings
+log/
+javadoc/
+
+/.angular/
+/dist/
+/node_modules/
