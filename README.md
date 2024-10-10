@@ -24,3 +24,9 @@ dem <b>Discovery Server</b>, als auch den einzelnen Microservises bereitstellt. 
 
 Sobald alle Microservises miteinander kommunizieren und auch mit der REST-Api von Außen erreichbar sind, wird das API Gateway mithilfe von <b>Swagger UI</b> durch die s.g. <b>OpenAPI</b> in die GUI transformiert.
 Diese GUI wird mithilfe von Angular realisiert. 
+
+## weitere Infos
+Eine erweiterte Beschreibung, sowie Tipps finden Sie unter dem Verzeichnis [Zusätzliche Informationen](/additional_infos) bzw. 'additional_infos/'
+
+## Änderungsverlauf
+Sofern aktuell, befinden sich historische Änderungen unter [Änderungsübersicht](additional_infos/history.md)

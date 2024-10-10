@@ -1,0 +1,83 @@
+services:
+  postgres:
+    container_name: selfcare_postgres_db
+    image: postgres
+    environment:
+      POSTGRES_DB: participantDB
+      POSTGRES_PASSWORD: selfcare
+      PGDATA: /var/lib/postgressql/data
+    ports:
+      - 5432:5432
+    networks:
+      - selfcare-network
+    restart: unless-stopped
+    volumes:
+      - postgres:/var/lib/postgressql/data
+      #- ./init_postgres_db.sql:/data/application/init.sql
+    #command: --init-file /data/application/init.sql
+
+  mongodb:
+    container_name: selfcare_mongo_db
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=selfcare
+      - MONGO_INITDB_ROOT_PASSWORD=selfcare
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data
+  
+  maria_db:
+    container_name: selfcare_maria_db
+    image: mariadb
+    environment:
+      - MARIADB_USER=root
+      - MARIADB_PASSWORD=selfcare
+      - MARIADB_ROOT_PASSWORD=selfcare
+    ports:
+      - 3306:3306
+    networks:
+      - selfcare-network
+    restart: unless-stopped
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ./init_maria_db.sql:/data/application/init.sql
+    command: --init-file /data/application/init.sql
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: selfcare_zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 2181:2181
+    networks:
+      - selfcare-network
+  
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: selfcare_kafka
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    networks:
+      - selfcare-network
+
+networks:
+  selfcare-network:
+    driver: bridge
+
+volumes:
+  postgres:
+  mariadb:
+  mongo:

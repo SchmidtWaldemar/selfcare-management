@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: participant-service
+          uri: lb:http://PARTICIPANT-SERVICE
+          predicates:
+            - Path=/api/participants/**
+        - id: group-service
+          uri: lb:http://GROUP-SERVICE
+          predicates:
+            - Path=/api/groups/**
+
+server:
+  port: 8222
