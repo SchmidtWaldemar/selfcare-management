@@ -1,14 +1,12 @@
-package com.platform.selfcare.group;
+package com.platform.selfcare.member;
 
-import java.util.List;
-
-import com.platform.selfcare.member.Member;
+import com.platform.selfcare.group.Group;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,19 +19,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name= "groups")
-public class Group {
-
+public class Member {
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
-	private String name;
+	@ManyToOne
+	@JoinColumn(name="group_id")
+	private Group group;
 	
-	@OneToMany(mappedBy = "group")
-	private List<Member> members;
+	private String clientId;
 	
-	public Group(String name) {
-		this.name = name;
-	}
+	private String nickname;
 }

@@ -7,6 +7,16 @@ spring:
       posrt: 27017
       database: notification
       authentication-database: admin
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: participantGroup,groupId
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.json.type.mapping: participantMessage:com.platform.selfcare.kafka.participant.ParticipantMessage,groupMessage:com.platform.selfcare.kafka.group.GroupMessage
 
 server:
   port: 8030

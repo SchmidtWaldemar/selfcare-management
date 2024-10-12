@@ -1,6 +1,7 @@
 package com.platform.selfcare.group;
 
 public record GroupResponse(
-		Integer id
+		Integer id,
+		String name
 	) {
 }
