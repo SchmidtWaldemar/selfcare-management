@@ -19,3 +19,21 @@ spring:
 
 server:
   port: 8010
+
+openapi:
+  service:
+    title: openapi for participant-service
+    version: 1.0
+    url: http://localhost:8222
+    description: API zum verwalten von Teilnehmern
+    licenceName: MIT license
+    licenceUrl: https://github.com/SchmidtWaldemar/selfcare-management?tab=MIT-1-ov-file
+    disclaimer: fuer die Inhalte wird keine Haftung uebernommen
+
+springdoc:
+  api-docs:
+    path: /participant-service/v3/api-docs
+  swagger-ui:
+    path: /participant-service/swagger-ui.html
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json

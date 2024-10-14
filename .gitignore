@@ -10,3 +10,7 @@ javadoc/
 /.angular/
 /dist/
 /node_modules/
+
+# custom
+/src/openapi/*/*.json
+/src/openapi/*/*.json

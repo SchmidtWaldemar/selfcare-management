@@ -1,5 +1,10 @@
 # Änderungsübersicht
 
+## Update 14-10-2024
+Alle Inhalte können im ersten GUI-Prototyp durch Angular verwaltet werden.
+
+mehr dazu: [GUI durch Angular](03_gui.md)
+
 ## Update 12-10-2024
 In diesem Update werden alle Verbindungen innerhalb der Microservices und ihren Datenbanken implementiert.
 

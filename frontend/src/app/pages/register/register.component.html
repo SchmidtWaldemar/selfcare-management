@@ -1,0 +1,15 @@
+<h1>Registrierung</h1>
+
+<div class="alert alert-info" role="alert" *ngIf="success">
+    <p>Registrierung war erfolgreich</p>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+    <p *ngFor="let errMsg of errorMsg">{{errMsg}}</p>
+</div>
+<div class="mb-3">
+    <label for="group" class="form-label">E-Mail</label>
+    <input [(ngModel)]="request.email" required type="email" class="form-control" id="email" placeholder="Teilnehmer E-Mail" />
+</div>
+<div class="mb-3">
+    <button class="btn btn-primary" (click)="createParticipant()">Registrieren</button>
+</div>

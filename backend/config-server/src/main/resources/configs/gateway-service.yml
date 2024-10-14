@@ -4,15 +4,57 @@ spring:
       discovery:
         locator:
           enabled: true
+      globalcors:
+        add-to-simple-url-handler-mapping: true
       routes:
         - id: participant-service
           uri: lb:http://PARTICIPANT-SERVICE
           predicates:
             - Path=/api/participants/**
+          metadata:
+            cors:
+              allowedOrigins: '*'
+              allowedMethods:
+                - GET
+                - POST
+              allowedHeaders: '*'
+              maxAge: 30
         - id: group-service
           uri: lb:http://GROUP-SERVICE
           predicates:
             - Path=/api/groups/**
+          metadata:
+            cors:
+              allowedOrigins: '*'
+              allowedMethods:
+                - GET
+                - POST
+              allowedHeaders: '*'
+              maxAge: 30
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
 
 server:
   port: 8222
+
+springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+        primaryName: API Gateway Service
+      - url: /group-service/v3/api-docs
+        name: Group Service
+        primaryName: Group Service
+      - url: /participant-service/v3/api-docs
+        name: Participant Service
+        primaryName: Participant Service

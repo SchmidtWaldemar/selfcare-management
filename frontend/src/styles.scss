@@ -1,0 +1,52 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+body {
+	width: 100vw;
+}
+
+h1 {
+	margin-bottom: 20px;
+    text-align: center;
+}  
+
+.content-container {
+	margin-top: 20px;
+	padding: 10px 10px 0px 10px;
+	background: beige;
+}
+
+.right {
+	text-align: right;
+}
+
+.bottom {
+    margin-bottom: 20px;
+}
+
+.content-area {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-flow: column;
+	margin: 20px;
+}
+
+.text-center {
+	display: inline-flex;
+	justify-content: end;
+}
+
+footer button {
+	color: white;
+	text-decoration: none;
+	background: none;
+	border: none;
+}
+
+footer div button::after  {
+	content: "|";
+	color: white;
+	margin-left: 15px;
+	margin-right: 15px;
+}
