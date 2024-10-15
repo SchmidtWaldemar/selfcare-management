@@ -1,5 +1,10 @@
 # Änderungsübersicht
 
+## Update 15-10-2024
+Teilnehmer werden per E-Mail benachrichtigt.
+
+mehr dazu: [E-Mail Benachrichtigung](04_send_mail.md)
+
 ## Update 14-10-2024
 Alle Inhalte können im ersten GUI-Prototyp durch Angular verwaltet werden.
 

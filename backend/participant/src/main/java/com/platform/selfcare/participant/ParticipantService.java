@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.platform.selfcare.handler.EntityAlreadyExistsException;
 import com.platform.selfcare.kafka.NotificationType;
 import com.platform.selfcare.kafka.ParticipantNotification;
+import com.platform.selfcare.kafka.ParticipantNotificationResponse;
 import com.platform.selfcare.kafka.ParticipantProducer;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -44,8 +45,9 @@ public class ParticipantService {
 		
 		producer.sendParticipantNotification(
 			new ParticipantNotification(
-				new ParticipantResponse(
-					participant.getId()
+				new ParticipantNotificationResponse(
+					participant.getId(),
+					participant.getEmail()
 				),
 				NotificationType.REGISTRATION
 			)
@@ -74,8 +76,9 @@ public class ParticipantService {
 			
 			producer.sendParticipantNotification(
 				new ParticipantNotification(
-					new ParticipantResponse(
-						found.get().getId()
+					new ParticipantNotificationResponse(
+						found.get().getId(),
+						found.get().getEmail()
 					),
 					NotificationType.NEW_MEMBER_IN_GROUP
 				)

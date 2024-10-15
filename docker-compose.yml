@@ -72,6 +72,13 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
     networks:
       - selfcare-network
+  
+  mail-dev:
+    container_name: selfcare_mail_dev
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
 
 networks:
   selfcare-network:
