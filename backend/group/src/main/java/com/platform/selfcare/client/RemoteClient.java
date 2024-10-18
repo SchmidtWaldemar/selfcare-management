@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 )
 public interface RemoteClient {
 	
-	@GetMapping("/{client-id}")
+	@GetMapping("/status/{client-id}")
 	Optional<ClientResponse> findRemoteClientById(@PathVariable("client-id") String clientId);
 	
 	@GetMapping("/info/{clientIds}")

@@ -85,4 +85,13 @@ public class ParticipantService {
 			);
 		}
 	}
+
+	public ParticipantResponse findByEmail(String email) {
+		Optional<Participant> found = repository.findByEmail(email);
+		if (!found.isPresent()) {
+			throw new EntityNotFoundException(String.format("Sorry: Participant not found by Email::", email));
+		}
+		
+		return new ParticipantResponse(found.get().getId());
+	}
 }

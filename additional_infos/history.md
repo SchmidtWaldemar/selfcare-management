@@ -1,5 +1,10 @@
 # Änderungsübersicht
 
+## Update 18-10-2024
+Authentifizierung durch Keycloak.
+
+mehr dazu: [Authentifizierung mit OAuth2](05_keycloak.md)
+
 ## Update 15-10-2024
 Teilnehmer werden per E-Mail benachrichtigt.
 

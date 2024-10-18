@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/participants")
 @RequiredArgsConstructor
+//@SecurityRequirement(name = "bearerAuth")
 public class ParticipantController {
 	
 	private final ParticipantService service;
@@ -33,7 +34,7 @@ public class ParticipantController {
 	}
 	
 	@Hidden
-	@GetMapping("/{client-id}")
+	@GetMapping("/status/{client-id}")
 	public ResponseEntity<ParticipantResponse> findById(@PathVariable("client-id") String clientId) {
 		return ResponseEntity.ok(service.findById(Integer.valueOf(clientId)));
 	}
@@ -43,5 +44,10 @@ public class ParticipantController {
 	public ResponseEntity<Void> informOtherMembers(@PathVariable("clientIds") String[] clientIds) {
 		service.sendMembershipMailToParticipants(clientIds);
 		return ResponseEntity.accepted().build();
+	}
+	
+	@GetMapping("/verify/{email}")
+	public ResponseEntity<ParticipantResponse> findByEmail(@PathVariable("email") String email) {
+		return ResponseEntity.ok(service.findByEmail(email));
 	}
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupRequest, GroupResponse, MemberRequest, MemberResponse } from '../../services/group/models';
 import { GroupControllerService } from '../../services/group/services';
+import { ParticipantRequest, ParticipantResponse } from '../../services/participant/models';
+import { ParticipantControllerService } from '../../services/participant/services';
+import { KeycloakService } from 'keycloak-angular';
+import { ClientProfile } from '../../models/clientProfile';
 
 @Component({
   selector: 'app-groups',
@@ -8,6 +12,8 @@ import { GroupControllerService } from '../../services/group/services';
   styleUrl: './groups.component.scss'
 })
 export class GroupsComponent implements OnInit {
+
+  private client: ClientProfile | undefined;
 
   groupResponse: GroupResponse = {};
   groupResponseList: Array<GroupResponse> = [];
@@ -20,7 +26,12 @@ export class GroupsComponent implements OnInit {
   success : boolean = false;
   successMember : boolean = false;
 
-  constructor(private service: GroupControllerService) {}
+  request: ParticipantRequest = {email: ''}
+
+  constructor(private service: GroupControllerService,
+    private clientService: ParticipantControllerService,
+    private readonly keycloak: KeycloakService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.service.findAll().subscribe({
@@ -28,6 +39,35 @@ export class GroupsComponent implements OnInit {
         this.groupResponseList = groups;
       }
     });
+
+    let persistedClient = localStorage.getItem('client');
+
+    if (persistedClient) {
+      this.client = JSON.parse(persistedClient) as ClientProfile;
+
+      this.clientService.findByEmail({
+        'email' : this.client.email
+      }).subscribe({
+        next: (participant : ParticipantResponse) => {
+          // email found in backend
+          localStorage.setItem("clientId", participant.id!.toString());
+        },
+        error: (err) => {
+          console.error(err)
+          // email not registered yet
+          this.request.email = this.client!.email;
+          this.clientService.register({
+            body: this.request
+          }).subscribe({
+            next: (participant : ParticipantResponse) => {
+              localStorage.setItem("clientId", participant.id!.toString());
+            },
+            error: () => {
+            }
+          });
+        }
+      });
+    }
   }
 
   setAsMember(event : any) {

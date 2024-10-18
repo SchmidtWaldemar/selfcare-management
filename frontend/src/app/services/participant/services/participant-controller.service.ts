@@ -11,6 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { findByEmail } from '../fn/participant-controller/find-by-email';
+import { FindByEmail$Params } from '../fn/participant-controller/find-by-email';
 import { ParticipantResponse } from '../models/participant-response';
 import { register } from '../fn/participant-controller/register';
 import { Register$Params } from '../fn/participant-controller/register';
@@ -42,6 +44,31 @@ export class ParticipantControllerService extends BaseService {
    */
   register(params: Register$Params, context?: HttpContext): Observable<ParticipantResponse> {
     return this.register$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ParticipantResponse>): ParticipantResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `findByEmail()` */
+  static readonly FindByEmailPath = '/api/participants/verify/{email}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findByEmail()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findByEmail$Response(params: FindByEmail$Params, context?: HttpContext): Observable<StrictHttpResponse<ParticipantResponse>> {
+    return findByEmail(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findByEmail$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findByEmail(params: FindByEmail$Params, context?: HttpContext): Observable<ParticipantResponse> {
+    return this.findByEmail$Response(params, context).pipe(
       map((r: StrictHttpResponse<ParticipantResponse>): ParticipantResponse => r.body)
     );
   }

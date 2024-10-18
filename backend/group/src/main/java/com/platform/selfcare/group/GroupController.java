@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.platform.selfcare.member.MemberRequest;
 import com.platform.selfcare.member.MemberResponse;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/groups")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class GroupController {
 	
 	private final GroupService service;

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+//import { KeycloakService } from './services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(private keycloakService: KeycloakService) {}
+
+  async logout() {
+    await this.keycloakService.logout();
+  }
 }

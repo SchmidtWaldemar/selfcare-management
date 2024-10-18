@@ -8,7 +8,10 @@
 	<div class="container text-center">
 		<div style="color: white;">|&#160;&#160;&#160;&#160;</div>
 		<div><button [routerLink]="['/']">Startseite</button></div>
-		<div><button [routerLink]="['/register']">Registrieren</button></div>
+		<!--
+			<div><button [routerLink]="['/register']">Registrieren</button></div>
+		-->
 		<div><button [routerLink]="['/groups']">Gruppenübersicht</button></div>
+		<div><button (click)="logout()">Logout</button></div>
 	</div>
 </footer>

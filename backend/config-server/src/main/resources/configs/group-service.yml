@@ -16,6 +16,12 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.type.mapping: groupMessage:com.platform.selfcare.kafka.GroupNotification
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:7080/realms/selfcare-management"
+
 server:
   port: 8020
   
@@ -32,6 +38,7 @@ openapi:
     licenceName: MIT license
     licenceUrl: https://github.com/SchmidtWaldemar/selfcare-management?tab=MIT-1-ov-file
     disclaimer: fuer die Inhalte wird keine Haftung uebernommen
+    keycloakConnectionUrl: http://localhost:7080/realms/selfcare-management/protocol/openid-connect/auth
 
 springdoc:
   api-docs:

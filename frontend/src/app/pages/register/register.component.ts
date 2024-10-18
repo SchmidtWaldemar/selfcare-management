@@ -25,7 +25,7 @@ export class RegisterComponent {
     this.participantResponse = {};
 
     this.service.register({
-      body: this.request 
+      body: this.request
     }).subscribe({
       next: (group : ParticipantResponse) => {
         this.participantResponse = group;
