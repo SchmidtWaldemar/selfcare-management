@@ -4,6 +4,7 @@ import { GroupsComponent } from './pages/groups/groups.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { StartComponent } from './pages/start/start.component';
 import { AuthGuard } from './services/keycloak/auth-guard';
+import { ModeratorComponent } from './pages/moderator/moderator.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,12 @@ const routes: Routes = [
     component: GroupsComponent,
     data: { name: 'Gruppen' },
     canActivate: [AuthGuard]
+  }
+  ,
+  {
+    path: 'moderator',
+    component: ModeratorComponent,
+    data: { name: 'Moderator' }
   }
   /*
   {

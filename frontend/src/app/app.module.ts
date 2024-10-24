@@ -11,6 +11,7 @@ import { StartComponent } from './pages/start/start.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { TokenInterceptor } from './interceptor/token-interceptor';
+import { ModeratorComponent } from './pages/moderator/moderator.component';
 
 export function initializeKeycloak(keycloakService: KeycloakService) {
   return () => keycloakService.init({
@@ -34,7 +35,8 @@ export function initializeKeycloak(keycloakService: KeycloakService) {
     GroupsComponent,
     RegisterComponent,
     StartComponent,
-    NavbarComponent
+    NavbarComponent,
+    ModeratorComponent
   ],
   imports: [
     BrowserModule,

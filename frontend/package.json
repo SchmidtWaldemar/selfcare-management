@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "group-api-gen": "ng-openapi-gen --input ./src/openapi/group/openapi.json --output ./src/app/services/group",
-    "participant-api-gen": "ng-openapi-gen --input ./src/openapi/participant/openapi.json --output ./src/app/services/participant"
+    "participant-api-gen": "ng-openapi-gen --input ./src/openapi/participant/openapi.json --output ./src/app/services/participant",
+    "moderator-api-gen": "ng-openapi-gen --input ./src/openapi/moderator/openapi.yml --output ./src/app/services/moderator"
   },
   "private": true,
   "dependencies": {

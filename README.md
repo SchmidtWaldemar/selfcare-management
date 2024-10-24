@@ -9,6 +9,7 @@ Hier stelle ich mir nun folgende Szenarien vor:
 - Die Speicherung der Daten soll unter mehreren Datenbanken erfolgen. Dazu werden die Datenbanken <b>MySQL</b>, <b>PostgreSQL</b> und <b>MongoDB</b> eingesetzt.
 - Teilnehmer, die registriert oder in Gruppen zugewiesen werden, sollen per E-Mail benachricht werden. Dazu soll u. a. der Message Broker <b>Kafka</b> verwendet werden.
 - Es soll ebenso eine gesicherte Kommunikation realisiert werden. Dazu soll ein passendes Verfahren später gefunden werden.
+- Es soll gezeigt werden, dass auch Erweiterung mit anderen Frameworks wie <b>Quarkus</b> problemlos an die Gesamtumgebung angebunden werden kann.
 
 
 ## Darstellung Gesamtkonzept

@@ -1,5 +1,10 @@
 # Änderungsübersicht
 
+## Update 24-10-2024
+Quarkus Service Erweiterung
+
+mehr dazu: [Neues (Micro-)service mit Quarkus](06_quarkus_service.md)
+
 ## Update 18-10-2024
 Authentifizierung durch Keycloak.
 

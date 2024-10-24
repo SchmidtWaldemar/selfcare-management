@@ -1,0 +1,18 @@
+
+<h1>Moderator erstellen</h1>
+
+<div class="alert alert-info" role="alert" *ngIf="success">
+    <p>Moderator erfolgreich angelegt</p>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+    <p *ngFor="let errMsg of errorMsg">{{errMsg}}</p>
+</div>
+<div class="mb-3">
+    <label for="moderator" class="form-label">Vorname</label>
+    <input [(ngModel)]="moderatorRequest.firstName" type="text" required class="form-control" id="firstName" placeholder="Vorname" />
+    <label for="moderator" class="form-label">Nachname</label>
+    <input [(ngModel)]="moderatorRequest.lastName" type="text" required class="form-control" id="lastName" placeholder="Nachname" />
+</div>
+<div class="mb-3">
+    <button class="btn btn-primary" (click)="createModerator()">Erstellen</button>
+</div>

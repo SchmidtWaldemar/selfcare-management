@@ -14,7 +14,8 @@ import lombok.RequiredArgsConstructor;
 public class GroupProducer {
 
 	@Autowired
-	private KafkaTemplate<String, GroupNotification> kafkaTemplate;
+	//private KafkaTemplate<String, GroupNotification> kafkaTemplate;
+	private KafkaTemplate<String, String> kafkaTemplate;
 	
 	public void sendGroupNotification(GroupNotification groupNotification) {
 		Message<GroupNotification> message = 

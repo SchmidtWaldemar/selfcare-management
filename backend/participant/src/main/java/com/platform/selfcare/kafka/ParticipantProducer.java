@@ -14,7 +14,8 @@ import lombok.RequiredArgsConstructor;
 public class ParticipantProducer {
 
 	@Autowired
-	private KafkaTemplate<String, ParticipantNotification> kafkaTemplate;
+	private KafkaTemplate<String, String> kafkaTemplate;
+	//private KafkaTemplate<String, ParticipantNotification> kafkaTemplate;
 	
 	public void sendParticipantNotification(ParticipantNotification participantNotification) {
 		Message<ParticipantNotification> message = 
