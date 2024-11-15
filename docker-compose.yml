@@ -1,4 +1,26 @@
 services:
+  localhost:
+    image: alpine:latest
+    command: sleep infinity
+    container_name: selfcare_alpine
+    ports:
+      #- "7080:7080" # keycloak port
+      - "8010:8010" # participant port
+      - "8020:8020" # group port
+      - "8030:8030" # notification
+      - "8040:8040" # moderator
+      - "8761:8761" # discovery
+      - "8222:8222" # participant port
+      - "3306:3306" # mariadb
+      - "27017:27017" # mongodb
+      - "5432:5432" # postgres
+      - "7080:7080" # keycloak
+      - "2181:2181" # zookeeper
+      - "9092:9092" # kafka
+      - "1080:1080" # maildev admin
+      - "1025:1025" # maildev smtp
+      #- "4200:4200" # frontend
+
   postgres:
     container_name: selfcare_postgres_db
     image: postgres
@@ -6,10 +28,7 @@ services:
       POSTGRES_DB: participantDB
       POSTGRES_PASSWORD: selfcare
       PGDATA: /var/lib/postgressql/data
-    ports:
-      - 5432:5432
-    networks:
-      - selfcare-network
+    network_mode: "service:localhost"
     restart: unless-stopped
     volumes:
       - postgres:/var/lib/postgressql/data
@@ -22,11 +41,10 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=selfcare
       - MONGO_INITDB_ROOT_PASSWORD=selfcare
-    ports:
-      - 27017:27017
     volumes:
       - mongo:/data
-  
+    network_mode: "service:localhost"
+
   maria_db:
     container_name: selfcare_maria_db
     image: mariadb
@@ -34,10 +52,7 @@ services:
       - MARIADB_USER=root
       - MARIADB_PASSWORD=selfcare
       - MARIADB_ROOT_PASSWORD=selfcare
-    ports:
-      - 3306:3306
-    networks:
-      - selfcare-network
+    network_mode: "service:localhost"
     restart: unless-stopped
     volumes:
       - mariadb:/var/lib/mysql
@@ -51,60 +66,168 @@ services:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 2181:2181
-    networks:
-      - selfcare-network
+      #ZOOKEEPER_ADMIN_ENABLE_SERVER: "false"
+      ZOOKEEPER_ADMIN_SERVER_PORT: 8084
+    network_mode: "service:localhost"
   
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: selfcare_kafka
-    ports:
-      - 9092:9092
     depends_on:
       - zookeeper
     environment:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      #KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECT: 0.0.0.0:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-    networks:
-      - selfcare-network
+    network_mode: "service:localhost"
   
   mail-dev:
-    container_name: selfcare_mail_dev
+    container_name: selfcare_maildev
     image: maildev/maildev
-    ports:
-      - 1080:1080
-      - 1025:1025
-
-  selfcare-keycloak:
-    image: quay.io/keycloak/keycloak:26.0
+    network_mode: "service:localhost"
+    #ports:
+      #- 1080:1080
+      #- 1025:1025
+    #networks:
+      #- "selfcare-network"
+      #backend:
+        #ipv4_address: 172.18.0.4
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: selfcare_keycloak
     environment:
-      KC_HOSTNAME: localhost
-      KC_HOSTNAME_PORT: 7080
-      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_HEALTH_ENABLED: "true"
-      KC_LOG_LEVEL: info
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7080/health/ready"]
-      interval: 15s
-      timeout: 2s
-      retries: 15
-    command: ["start-dev", "--http-port", "7080", "--https-port", "7443"]
-    ports:
-      - "7080:7080"
-      - "7443:7443"
-    networks:
-      - selfcare-network
+      KC_HTTP_PORT: 7080
+      KEYCLOAK_FRONTEND_URL: http://localhost:7080/auth
+    network_mode: "service:localhost"
+    volumes:
+      #- ./backend/keycloak_data:/opt/keycloak/data/h2 # by using h2 database
+      - ./frontend/keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
+    command: 
+      - start-dev 
+      - --import-realm
 
-networks:
-  selfcare-network:
-    driver: bridge
+  config-server:
+    image: selfcare-config-server
+    build:
+      context: backend/config-server
+      dockerfile: Dockerfile
+    container_name: config-server
+    network_mode: "service:localhost"
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost:8888/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 2s
+      retries: 10
+
+  discovery:
+    image: selfcare-discovery
+    build:
+      context: backend/discovery
+      dockerfile: Dockerfile
+    container_name: selfcare-discovery
+    depends_on:
+      config-server:
+        condition: service_healthy
+    network_mode: "service:localhost"
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost:8761/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 2s
+      retries: 10
+
+  gateway:
+    image: selfcare-gateway
+    build:
+      context: backend/gateway
+      dockerfile: Dockerfile
+    container_name: selfcare-gateway
+    depends_on:
+      config-server:
+        condition: service_healthy
+    network_mode: "service:localhost"
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost:8222/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 2s
+      retries: 10
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
+  
+  notification:
+    image: selfcare-notification
+    build:
+      context: backend/notification
+      dockerfile: Dockerfile
+    container_name: selfcare-notification
+    depends_on:
+      discovery:
+        condition: service_healthy
+    network_mode: "service:localhost"
+    tty: true
+  
+  group:
+    image: selfcare-group
+    build:
+      context: backend/group
+      dockerfile: Dockerfile
+    container_name: selfcare-group
+    depends_on:
+      discovery:
+        condition: service_healthy
+    network_mode: "service:localhost"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
+
+  participant:
+    image: selfcare-participant
+    build:
+      context: backend/participant
+      dockerfile: Dockerfile
+    container_name: selfcare-participant
+    depends_on:
+      discovery:
+        condition: service_healthy
+    network_mode: "service:localhost"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
+
+  moderator:
+    image: selfcare-moderator
+    container_name: selfcare-moderator
+    build:
+      context: backend/moderator
+      dockerfile: src/main/docker/Dockerfile.jvm
+    #entrypoint: [ "mvn", "clean", "quarkus:dev" ]
+    depends_on:
+      discovery:
+        condition: service_healthy
+    network_mode: "service:localhost"
+
+  #frontend:
+    #image: selfcare-frontend
+    #container_name: selfcare-frontend
+    #build:
+      #context: frontend
+      #dockerfile: Dockerfile
+    #volumes:
+      #- ./frontend:/app
+    #network_mode: "service:localhost"
+
+#networks:
+  #selfcare-network:
+    #driver: bridge
+  #backend:
+    #ipam:
+      #config:
+        #- subnet: 172.18.0.0/16
 
 volumes:
   postgres:

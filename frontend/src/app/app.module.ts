@@ -22,6 +22,8 @@ export function initializeKeycloak(keycloakService: KeycloakService) {
     },
     initOptions: {
       onLoad: 'check-sso',
+      //onLoad: 'login-required',
+      checkLoginIframe: false,
       silentCheckSsoRedirectUri:
           window.location.origin + '/assets/silent-check-sso.html'
     },
@@ -43,7 +45,7 @@ export function initializeKeycloak(keycloakService: KeycloakService) {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
   ],
   providers: [
     provideHttpClient(),

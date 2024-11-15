@@ -29,6 +29,7 @@ openapi:
   service:
     title: openapi for participant-service
     version: 1.0
+    #url: http://selfcare-gateway:8222
     url: http://localhost:8222
     description: API zum verwalten von Teilnehmern
     licenceName: MIT license

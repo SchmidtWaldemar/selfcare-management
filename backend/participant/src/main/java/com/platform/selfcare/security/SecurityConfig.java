@@ -19,7 +19,7 @@ public class SecurityConfig {
 			.cors(Customizer.withDefaults())
 			.csrf(c -> c.disable())
 			.authorizeHttpRequests((authHttpRequest) -> 
-				authHttpRequest.requestMatchers(
+				authHttpRequest.requestMatchers(                          
 						"/participant-service/auth/**",
                         "/participant-service/v2/api-docs",
                         "/participant-service/v3/api-docs/**",
@@ -30,27 +30,10 @@ public class SecurityConfig {
                         "/participant-service/swagger-ui/**",
                         "/participant-service/webjars/**",
                         "/participant-service/swagger-ui.html"
-                        //"/api/participants/info/**",
-                        //"/api/participants/status/**"
-                        
-						//"/auth/**",
-                        //"/v2/api-docs",
-                        //"/v3/api-docs",
-                        //"/v3/api-docs/**",
-                        //"/swagger-resources",
-                        //"/swagger-resources/**",
-                        //"/configuration/ui",
-                        //"/configuration/security",
-                        //"/swagger-ui/**",
-                        //"/webjars/**",
-                        //"/swagger-ui.html"
 				)
 					.permitAll()
 				.anyRequest().authenticated()
-			)
-			/*
-			authHttpRequest.requestMatchers("/**").permitAll())
-				 */
+            )
 			.oauth2ResourceServer(authentication ->
 				authentication.jwt(token -> token.jwtAuthenticationConverter(new JWTAuthConverter()))
 			);

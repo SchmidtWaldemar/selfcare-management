@@ -2,7 +2,6 @@ package com.platform.selfcare;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication

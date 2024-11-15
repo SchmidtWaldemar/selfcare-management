@@ -3,3 +3,7 @@ spring:
     name: discovery-service
   config:
     import: optional:configserver:http://localhost:8888
+  security:
+    user:
+      name: eureka
+      password: eureka

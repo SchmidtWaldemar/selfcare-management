@@ -25,8 +25,8 @@ public class GatewayApplication {
 	RouteLocator routeLocator(RouteLocatorBuilder builder) {
 	  return builder
 	    .routes()
-	    .route(r -> r.path("/group-service/v3/api-docs").and().method(HttpMethod.GET).uri("lb://group-service"))
-	    .route(r -> r.path("/participant-service/v3/api-docs").and().method(HttpMethod.GET).uri("lb://participant-service"))
+			.route(r -> r.path("/group-service/v3/api-docs").and().method(HttpMethod.GET).uri("lb://group-service"))
+			.route(r -> r.path("/participant-service/v3/api-docs").and().method(HttpMethod.GET).uri("lb://participant-service"))
 	    .build();
 	}
 }
