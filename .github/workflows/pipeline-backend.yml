@@ -7,13 +7,14 @@ on:
     paths:
       - backend/**
       - config-server/**
+      - discovery/**
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
 
 jobs:
   compile:
     runs-on: self-hosted
-    name: Compile config-server project
+    name: Compile microservice projects
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,7 +29,7 @@ jobs:
 
   build:
     runs-on: self-hosted
-    name: Build config-server
+    name: Build microservices
     needs: [compile]
     steps:
       - name: Checkout code
@@ -42,9 +43,11 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      - name: Compile config-server project
+      - name: Compile microservice projects
         run: |
           cd backend/config-server
+          ./mvnw clean compile
+          cd ../discovery
           ./mvnw clean compile
 
   build-image:
@@ -61,7 +64,9 @@ jobs:
         id: extract_version
         run: |
           cd backend/config-server
-          echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          echo "VERSION_CONFIG_SERVER=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          cd ../discovery
+          echo "VERSION_DISCOVERY=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -69,20 +74,32 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build & Push to DockerHub
+      - name: Build & Push config-server to DockerHub
         uses: docker/build-push-action@v5
         with:
           context: backend/config-server
           file: backend/config-server/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
           build-args: |
             PROFILE=dev
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}
+
+      - name: Build & Push discovery to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: backend/discovery
+          file: backend/discovery/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:${{ steps.extract_version.outputs.VERSION_DISCOVERY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
+          build-args: |
+            PROFILE=dev
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
   
   deploy:
-    name: Deploy config-server Backend
+    name: Deploy Backend Microservices
     runs-on: self-hosted
     needs: [build-image]
     steps:

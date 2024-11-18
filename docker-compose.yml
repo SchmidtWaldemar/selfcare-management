@@ -128,7 +128,8 @@ services:
       retries: 10
 
   discovery:
-    image: selfcare-discovery
+    #image: selfcare-discovery
+    image: schmidtwaldemar/selfcare-discovery-api:0.0.1-SNAPSHOT
     build:
       context: backend/discovery
       dockerfile: Dockerfile
