@@ -145,7 +145,8 @@ services:
       retries: 10
 
   gateway:
-    image: selfcare-gateway
+    #image: selfcare-gateway
+    image: schmidtwaldemar/selfcare-gateway-api:0.0.1-SNAPSHOT
     build:
       context: backend/gateway
       dockerfile: Dockerfile
@@ -164,7 +165,8 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
   
   notification:
-    image: selfcare-notification
+    #image: selfcare-notification
+    image: schmidtwaldemar/selfcare-notification-api:0.0.1-SNAPSHOT
     build:
       context: backend/notification
       dockerfile: Dockerfile
@@ -176,7 +178,8 @@ services:
     tty: true
   
   group:
-    image: selfcare-group
+    #image: selfcare-group
+    image: schmidtwaldemar/selfcare-group-api:0.0.1-SNAPSHOT
     build:
       context: backend/group
       dockerfile: Dockerfile
