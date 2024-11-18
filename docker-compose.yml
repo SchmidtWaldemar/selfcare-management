@@ -114,7 +114,8 @@ services:
       - --import-realm
 
   config-server:
-    image: selfcare-config-server
+    #image: selfcare-config-server
+    image: schmidtwaldemar/selfcare-config-server-api:0.0.1-SNAPSHOT
     build:
       context: backend/config-server
       dockerfile: Dockerfile
