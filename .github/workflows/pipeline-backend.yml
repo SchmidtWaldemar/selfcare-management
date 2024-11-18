@@ -8,6 +8,10 @@ on:
       - backend/**
       - config-server/**
       - discovery/**
+      - gateway/**
+      - notification/**
+      - group/**
+      - participant/**
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
 
@@ -49,6 +53,14 @@ jobs:
           ./mvnw clean compile
           cd ../discovery
           ./mvnw clean compile
+          cd ../gateway
+          ./mvnw clean compile
+          cd ../notification
+          ./mvnw clean compile
+          cd ../group
+          ./mvnw clean compile
+          cd ../participant
+          ./mvnw clean compile
 
   build-image:
     name: Build Docker image
@@ -67,7 +79,14 @@ jobs:
           echo "VERSION_CONFIG_SERVER=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
           cd ../discovery
           echo "VERSION_DISCOVERY=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-
+          cd ../gateway
+          echo "VERSION_GATEWAY=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          cd ../notification
+          echo "VERSION_NOTIFICATION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          cd ../group
+          echo "VERSION_GROUP=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          cd ../participant
+          echo "VERSION_PARTICIPANT=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
@@ -97,6 +116,54 @@ jobs:
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
+
+      - name: Build & Push gateway to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: backend/gateway
+          file: backend/gateway/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:${{ steps.extract_version.outputs.VERSION_GATEWAY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
+          build-args: |
+            PROFILE=docker
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION_GATEWAY }}
+
+      - name: Build & Push notification to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: backend/notification
+          file: backend/notification/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:${{ steps.extract_version.outputs.VERSION_NOTIFICATION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
+          build-args: |
+            PROFILE=docker
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION_NOTIFICATION }}
+
+      - name: Build & Push group to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: backend/group
+          file: backend/group/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:${{ steps.extract_version.outputs.VERSION_GROUP }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
+          build-args: |
+            PROFILE=docker
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION_GROUP }}
+
+      - name: Build & Push participant to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: backend/participant
+          file: backend/participant/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ steps.extract_version.outputs.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
+          build-args: |
+            PROFILE=docker
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
   
   deploy:
     name: Deploy Backend Microservices

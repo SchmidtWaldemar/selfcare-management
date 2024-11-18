@@ -201,17 +201,16 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
 
-  moderator:
-    image: selfcare-moderator
-    container_name: selfcare-moderator
-    build:
-      context: backend/moderator
-      dockerfile: src/main/docker/Dockerfile.jvm
-    #entrypoint: [ "mvn", "clean", "quarkus:dev" ]
-    depends_on:
-      discovery:
-        condition: service_healthy
-    network_mode: "service:localhost"
+  #moderator:
+    #image: selfcare-moderator
+    #container_name: selfcare-moderator
+    #build:
+      #context: backend/moderator
+      #dockerfile: src/main/docker/Dockerfile.jvm
+    #depends_on:
+      #discovery:
+        #condition: service_healthy
+    #network_mode: "service:localhost"
 
   #frontend:
     #image: selfcare-frontend
