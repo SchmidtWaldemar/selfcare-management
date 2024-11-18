@@ -32,6 +32,9 @@ spring:
                 - POST
               allowedHeaders: '*'
               maxAge: 30
+  security:
+    cors:
+      origin: http://192.168.178.157:8222/,http://192.168.178.157:7080/,http://localhost:4200/
 
 logging:
   level:
