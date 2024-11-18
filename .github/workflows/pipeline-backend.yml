@@ -153,17 +153,17 @@ jobs:
             PROFILE=docker
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_GROUP }}
 
-      - name: Build & Push participant to DockerHub
-        uses: docker/build-push-action@v5
-        with:
-          context: backend/participant
-          file: backend/participant/Dockerfile
-          push: true
-          platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ steps.extract_version.outputs.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
-          build-args: |
-            PROFILE=docker
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
+      #- name: Build & Push participant to DockerHub
+        #uses: docker/build-push-action@v5
+        #with:
+          #context: backend/participant
+          #file: backend/participant/Dockerfile
+          #push: true
+          #platforms: linux/amd64
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ steps.extract_version.outputs.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
+          #build-args: |
+            #PROFILE=docker
+            #APP_VERSION=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
   
   deploy:
     name: Deploy Backend Microservices
