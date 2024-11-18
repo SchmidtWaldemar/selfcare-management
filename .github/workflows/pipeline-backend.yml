@@ -6,6 +6,7 @@ on:
       - test/pipeline
     paths:
       - backend/**
+      - moderator/src/main/docker/**
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
 
@@ -71,8 +72,8 @@ jobs:
       - name: Build & Push to DockerHub
         uses: docker/build-push-action@v5
         with:
-          context: backend/moderator
-          file: src/main/docker/Dockerfile.jvm
+          context: backend
+          file: moderator/src/main/docker/Dockerfile.jvm
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
