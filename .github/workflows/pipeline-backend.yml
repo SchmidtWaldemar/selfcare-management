@@ -6,14 +6,14 @@ on:
       - test/pipeline
     paths:
       - backend/**
-      - moderator/src/main/docker/**
+      - config-server/**
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
 
 jobs:
   compile:
     runs-on: self-hosted
-    name: Compile moderator project
+    name: Compile config-server project
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
 
   build:
     runs-on: self-hosted
-    name: Build moderator
+    name: Build config-server
     needs: [compile]
     steps:
       - name: Checkout code
@@ -42,9 +42,9 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      - name: Compile moderator project
+      - name: Compile config-server project
         run: |
-          cd backend/moderator
+          cd backend/config-server
           ./mvnw clean compile
 
   build-image:
@@ -60,7 +60,7 @@ jobs:
       - name: Extract project version
         id: extract_version
         run: |
-          cd backend/moderator
+          cd backend/config-server
           echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name: Login to DockerHub
@@ -72,17 +72,17 @@ jobs:
       - name: Build & Push to DockerHub
         uses: docker/build-push-action@v5
         with:
-          context: backend/moderator
-          file: backend/moderator/src/main/docker/Dockerfile.jvm
+          context: backend/config-server
+          file: backend/config-server/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
   
   deploy:
-    name: Deploy Moderator Backend
+    name: Deploy config-server Backend
     runs-on: self-hosted
     needs: [build-image]
     steps:
