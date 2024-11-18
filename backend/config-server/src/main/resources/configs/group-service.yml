@@ -42,7 +42,7 @@ openapi:
     licenceName: MIT license
     licenceUrl: https://github.com/SchmidtWaldemar/selfcare-management?tab=MIT-1-ov-file
     disclaimer: fuer die Inhalte wird keine Haftung uebernommen
-    keycloakConnectionUrl: http://localhost:7080/realms/selfcare-management/protocol/openid-connect/auth
+    keycloakConnectionUrl: http://192.168.178.157:7080/realms/selfcare-management/protocol/openid-connect/auth
 
 springdoc:
   api-docs:
