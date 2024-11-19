@@ -61,6 +61,8 @@ jobs:
           ./mvnw clean compile
           cd ../participant
           ./mvnw clean compile
+          cd ../moderator
+          ./mvnw package
 
   build-image:
     name: Build Docker image
@@ -87,6 +89,8 @@ jobs:
           echo "VERSION_GROUP=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
           cd ../participant
           echo "VERSION_PARTICIPANT=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          cd ../moderator
+          echo "VERSION_MODERATOR=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
@@ -164,6 +168,18 @@ jobs:
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
+
+      - name: Build & Push moderator to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: backend/moderator
+          file: backend/moderator/src/main/docker/Dockerfile.jvm
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ steps.extract_version.outputs.VERSION_MODERATOR }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
+          build-args: |
+            PROFILE=dev
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION_MODERATOR }}
   
   deploy:
     name: Deploy Backend Microservices
