@@ -52,10 +52,11 @@ jobs:
       - name: Copy docker-compose file
         run: scp -oStrictHostKeyChecking=no docker-compose-frontend.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_UI_IP }}:deployment/docker-compose-frontend.yml
 
+      #export VERSION=${{ steps.extract_version.outputs.VERSION }}
       - name: Deploy on remote Host
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_UI_IP }} <<EOF
-          export VERSION=${{ steps.extract_version.outputs.VERSION }}
+          export VERSION=0.0.0
           export VPS_BACKEND_HOST=${{ secrets.VPS_IP }}
           cd deployment
           docker compose -f docker-compose-frontend.yml pull -q
