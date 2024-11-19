@@ -115,7 +115,7 @@ services:
 
   config-server:
     #image: selfcare-config-server
-    image: schmidtwaldemar/selfcare-config-server-api:0.0.1-SNAPSHOT
+    image: schmidtwaldemar/selfcare-config-server-api:${VERSION_CONFIG_SERVER}
     build:
       context: backend/config-server
       dockerfile: Dockerfile
@@ -129,7 +129,7 @@ services:
 
   discovery:
     #image: selfcare-discovery
-    image: schmidtwaldemar/selfcare-discovery-api:0.0.1-SNAPSHOT
+    image: schmidtwaldemar/selfcare-discovery-api:${VERSION_DISCOVERY}
     build:
       context: backend/discovery
       dockerfile: Dockerfile
@@ -146,7 +146,7 @@ services:
 
   gateway:
     #image: selfcare-gateway
-    image: schmidtwaldemar/selfcare-gateway-api:0.0.1-SNAPSHOT
+    image: schmidtwaldemar/selfcare-gateway-api:${VERSION_GATEWAY}
     build:
       context: backend/gateway
       dockerfile: Dockerfile
@@ -166,7 +166,7 @@ services:
   
   notification:
     #image: selfcare-notification
-    image: schmidtwaldemar/selfcare-notification-api:0.0.1-SNAPSHOT
+    image: schmidtwaldemar/selfcare-notification-api:${VERSION_NOTIFICATION}
     build:
       context: backend/notification
       dockerfile: Dockerfile
@@ -179,7 +179,7 @@ services:
   
   group:
     #image: selfcare-group
-    image: schmidtwaldemar/selfcare-group-api:0.0.1-SNAPSHOT
+    image: schmidtwaldemar/selfcare-group-api:${VERSION_GROUP}
     build:
       context: backend/group
       dockerfile: Dockerfile
@@ -193,7 +193,7 @@ services:
 
   participant:
     #image: selfcare-participant
-    image: schmidtwaldemar/selfcare-participant-api:0.0.1-SNAPSHOT
+    image: schmidtwaldemar/selfcare-participant-api:${VERSION_PARTICIPANT}
     build:
       context: backend/participant
       dockerfile: Dockerfile
@@ -207,7 +207,7 @@ services:
 
   moderator:
     #image: selfcare-moderator
-    image: schmidtwaldemar/selfcare-moderator-api:1.0.0-SNAPSHOT
+    image: schmidtwaldemar/selfcare-moderator-api:${VERSION_MODERATOR}
     container_name: selfcare-moderator
     build:
       context: backend/moderator

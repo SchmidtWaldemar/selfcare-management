@@ -1,14 +1,6 @@
 services:
-  #localhost-frontend:
-    #image: alpine:latest
-    #command: sleep infinity
-    #container_name: selfcare_alpine
-    #ports:
-      #- "4200:4200" # frontend
-
   frontend:
-    #image: selfcare-frontend
-    image: schmidtwaldemar/selfcare-frontend:0.0.0
+    image: schmidtwaldemar/selfcare-frontend:${VERSION}
     container_name: selfcare-frontend
     build:
       context: frontend
@@ -19,7 +11,11 @@ services:
       - 80:8080
     networks:
       - "selfcare-network"
-    #network_mode: "service:localhost-frontend"
+    environment:
+      - BACKEND_HOST: ${VPS_BACKEND_HOST}
+      - BACKEND_PORT: 8222
+      - BACKEND_PROTOCOL_SCHEMA: 'http'
+      - BACKEND_MODERATOR_PORT: 8040
 
 networks:
   selfcare-network:
