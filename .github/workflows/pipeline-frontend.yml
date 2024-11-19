@@ -37,7 +37,7 @@ jobs:
           file: frontend/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-ui:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-ui:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-frontend:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-frontend:latest
 
   deploy:
     name: Deploy Frontend
