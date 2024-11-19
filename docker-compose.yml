@@ -212,9 +212,9 @@ services:
     build:
       context: backend/moderator
       dockerfile: src/main/docker/Dockerfile.jvm
-    #depends_on:
-      #discovery:
-        #condition: service_healthy
+    depends_on:
+      discovery:
+        condition: service_healthy
     network_mode: "service:localhost"
 
   #frontend:
