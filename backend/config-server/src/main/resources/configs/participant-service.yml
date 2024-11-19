@@ -20,7 +20,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: "http://localhost:7080/realms/selfcare-management"
+          issuer-uri: "http://192.168.178.157:7080/realms/selfcare-management"
 
 server:
   port: 8010
@@ -29,13 +29,12 @@ openapi:
   service:
     title: openapi for participant-service
     version: 1.0
-    #url: http://selfcare-gateway:8222
-    url: http://localhost:8222
+    url: http://192.168.178.157:8222
     description: API zum verwalten von Teilnehmern
     licenceName: MIT license
     licenceUrl: https://github.com/SchmidtWaldemar/selfcare-management?tab=MIT-1-ov-file
     disclaimer: fuer die Inhalte wird keine Haftung uebernommen
-    keycloakConnectionUrl: http://localhost:7080/realms/selfcare-management/protocol/openid-connect/auth
+    keycloakConnectionUrl: http://192.168.178.157:7080/realms/selfcare-management/protocol/openid-connect/auth
 
 springdoc:
   api-docs:

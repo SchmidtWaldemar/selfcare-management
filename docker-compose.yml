@@ -191,18 +191,18 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
 
-  #participant:
-    #image: selfcare-participant
-    #build:
-      #context: backend/participant
-      #dockerfile: Dockerfile
-    #container_name: selfcare-participant
-    #depends_on:
-      #discovery:
-        #condition: service_healthy
-    #network_mode: "service:localhost"
-    #environment:
-      #- EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
+  participant:
+    image: selfcare-participant
+    build:
+      context: backend/participant
+      dockerfile: Dockerfile
+    container_name: selfcare-participant
+    depends_on:
+      discovery:
+        condition: service_healthy
+    network_mode: "service:localhost"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
 
   #moderator:
     #image: selfcare-moderator

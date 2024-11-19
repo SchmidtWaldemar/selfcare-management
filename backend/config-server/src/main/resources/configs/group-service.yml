@@ -21,8 +21,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: "http://192.168.178.157:7080/realms/selfcare-management"
-    cors:
-      origin: http://192.168.178.157:8222/,http://192.168.178.157:7080/,http://localhost:4200/,http://192.168.178.157:7080/
 
 server:
   port: 8020
