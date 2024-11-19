@@ -1,0 +1,17 @@
+services:
+  localhost-frontend:
+    image: alpine:latest
+    command: sleep infinity
+    #container_name: selfcare_alpine
+    ports:
+      - "4200:4200" # frontend
+
+  frontend:
+    image: selfcare-frontend
+    container_name: selfcare-frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+    network_mode: "service:localhost-frontend"
