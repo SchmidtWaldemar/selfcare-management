@@ -193,17 +193,24 @@ jobs:
       - name: Copy docker-compose file
         run: scp -oStrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:deployment/docker-compose.yml
 
+      #export VERSION_CONFIG_SERVER=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}
+      #export VERSION_DISCOVERY=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
+      #export VERSION_GATEWAY=${{ steps.extract_version.outputs.VERSION_GATEWAY }}
+      #export VERSION_NOTIFICATION=${{ steps.extract_version.outputs.VERSION_NOTIFICATION }}
+      #export VERSION_GROUP=${{ steps.extract_version.outputs.VERSION_GROUP }}
+      #export VERSION_PARTICIPANT=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
+      #export VERSION_MODERATOR=${{ steps.extract_version.outputs.VERSION_MODERATOR }}
       - name: Deploy by docker compose
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
           export VPS_IP=${{ secrets.VPS_IP }}
-          export VERSION_CONFIG_SERVER=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}
-          export VERSION_DISCOVERY=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
-          export VERSION_GATEWAY=${{ steps.extract_version.outputs.VERSION_GATEWAY }}
-          export VERSION_NOTIFICATION=${{ steps.extract_version.outputs.VERSION_NOTIFICATION }}
-          export VERSION_GROUP=${{ steps.extract_version.outputs.VERSION_GROUP }}
-          export VERSION_PARTICIPANT=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
-          export VERSION_MODERATOR=${{ steps.extract_version.outputs.VERSION_MODERATOR }}
+          export VERSION_CONFIG_SERVER=0.0.1-SNAPSHOT
+          export VERSION_DISCOVERY=0.0.1-SNAPSHOT
+          export VERSION_GATEWAY=0.0.1-SNAPSHOT
+          export VERSION_NOTIFICATION=0.0.1-SNAPSHOT
+          export VERSION_GROUP=0.0.1-SNAPSHOT
+          export VERSION_PARTICIPANT=0.0.1-SNAPSHOT
+          export VERSION_MODERATOR=1.0.0-SNAPSHOT
           cd deployment
           docker compose -f docker-compose.yml pull -q
           docker compose -f docker-compose.yml up -d
