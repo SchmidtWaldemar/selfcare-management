@@ -15,15 +15,6 @@ on:
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
 
-env:
-  VERSION_CONFIG_SERVER: $(cd backend/config-server && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
-  VERSION_DISCOVERY: $(cd ../discovery && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
-  VERSION_GATEWAY: $(cd ../gateway && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
-  VERSION_NOTIFICATION: $(cd ../notification && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
-  VERSION_GROUP: $(cd ../group && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
-  VERSION_PARTICIPANT: $(cd ../participant && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
-  VERSION_MODERATOR: $(cd ../moderator && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
-
 jobs:
   compile:
     runs-on: self-hosted
@@ -114,7 +105,6 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ env.VERSION_CONFIG_SERVER }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ env.VERSION_CONFIG_SERVER }}
@@ -127,7 +117,6 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:${{ steps.extract_version.outputs.VERSION_DISCOVERY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:${{ env.VERSION_DISCOVERY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ env.VERSION_DISCOVERY }}
@@ -140,7 +129,6 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:${{ steps.extract_version.outputs.VERSION_GATEWAY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:${{ env.VERSION_GATEWAY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ env.VERSION_GATEWAY }}
@@ -153,7 +141,6 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:${{ steps.extract_version.outputs.VERSION_NOTIFICATION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:${{ env.VERSION_NOTIFICATION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ env.VERSION_NOTIFICATION }}
@@ -166,7 +153,6 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:${{ steps.extract_version.outputs.VERSION_GROUP }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:${{ env.VERSION_GROUP }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ env.VERSION_GROUP }}
@@ -179,7 +165,6 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ steps.extract_version.outputs.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ env.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ env.VERSION_PARTICIPANT }}
@@ -192,7 +177,6 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ steps.extract_version.outputs.VERSION_MODERATOR }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ env.VERSION_MODERATOR }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ env.VERSION_MODERATOR }}
