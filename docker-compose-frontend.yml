@@ -11,11 +11,7 @@ services:
       - 80:8080
     networks:
       - "selfcare-network"
-    environment:
-      - BACKEND_HOST=${VPS_BACKEND_HOST}
-      - BACKEND_PORT=8222
-      - BACKEND_PROTOCOL_SCHEMA='http'
-      - BACKEND_MODERATOR_PORT=8040
+    env_file: '.env-frontend'
 
 networks:
   selfcare-network:
