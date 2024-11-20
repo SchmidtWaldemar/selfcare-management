@@ -15,6 +15,15 @@ on:
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
 
+variables:
+  VERSION_CONFIG_SERVER: $(cd backend/config-server && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+  VERSION_DISCOVERY: $(cd ../discovery && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+  VERSION_GATEWAY: $(cd ../gateway && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+  VERSION_NOTIFICATION: $(cd ../notification && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+  VERSION_GROUP: $(cd ../group && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+  VERSION_PARTICIPANT: $(cd ../participant && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+  VERSION_MODERATOR: $(cd ../moderator && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
+
 jobs:
   compile:
     runs-on: self-hosted
@@ -74,23 +83,23 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      - name: Extract project version
-        id: extract_version
-        run: |
-          cd backend/config-server
-          echo "VERSION_CONFIG_SERVER=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-          cd ../discovery
-          echo "VERSION_DISCOVERY=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-          cd ../gateway
-          echo "VERSION_GATEWAY=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-          cd ../notification
-          echo "VERSION_NOTIFICATION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-          cd ../group
-          echo "VERSION_GROUP=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-          cd ../participant
-          echo "VERSION_PARTICIPANT=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-          cd ../moderator
-          echo "VERSION_MODERATOR=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+      #- name: Extract project version
+        #id: extract_version
+        #run: |
+          #cd backend/config-server
+          #echo "VERSION_CONFIG_SERVER=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          #cd ../discovery
+          #echo "VERSION_DISCOVERY=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          #cd ../gateway
+          #echo "VERSION_GATEWAY=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          #cd ../notification
+          #echo "VERSION_NOTIFICATION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          #cd ../group
+          #echo "VERSION_GROUP=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          #cd ../participant
+          #echo "VERSION_PARTICIPANT=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          #cd ../moderator
+          #echo "VERSION_MODERATOR=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
@@ -104,7 +113,8 @@ jobs:
           file: backend/config-server/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:$(VERSION_CONFIG_SERVER),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}
@@ -116,7 +126,8 @@ jobs:
           file: backend/discovery/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:${{ steps.extract_version.outputs.VERSION_DISCOVERY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:${{ steps.extract_version.outputs.VERSION_DISCOVERY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:$(VERSION_DISCOVERY),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
@@ -128,7 +139,8 @@ jobs:
           file: backend/gateway/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:${{ steps.extract_version.outputs.VERSION_GATEWAY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:${{ steps.extract_version.outputs.VERSION_GATEWAY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:$(VERSION_GATEWAY),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_GATEWAY }}
@@ -140,7 +152,8 @@ jobs:
           file: backend/notification/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:${{ steps.extract_version.outputs.VERSION_NOTIFICATION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:${{ steps.extract_version.outputs.VERSION_NOTIFICATION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:$(VERSION_NOTIFICATION),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_NOTIFICATION }}
@@ -152,7 +165,8 @@ jobs:
           file: backend/group/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:${{ steps.extract_version.outputs.VERSION_GROUP }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:${{ steps.extract_version.outputs.VERSION_GROUP }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:$(VERSION_GROUP),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_GROUP }}
@@ -164,7 +178,8 @@ jobs:
           file: backend/participant/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ steps.extract_version.outputs.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ steps.extract_version.outputs.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:$(VERSION_PARTICIPANT),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
           build-args: |
             PROFILE=docker
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
@@ -176,7 +191,8 @@ jobs:
           file: backend/moderator/src/main/docker/Dockerfile.jvm
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ steps.extract_version.outputs.VERSION_MODERATOR }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ steps.extract_version.outputs.VERSION_MODERATOR }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:$(VERSION_MODERATOR),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION_MODERATOR }}
@@ -193,24 +209,24 @@ jobs:
       - name: Copy docker-compose file
         run: scp -oStrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:deployment/docker-compose.yml
 
-      #export VERSION_CONFIG_SERVER=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}
-      #export VERSION_DISCOVERY=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
-      #export VERSION_GATEWAY=${{ steps.extract_version.outputs.VERSION_GATEWAY }}
-      #export VERSION_NOTIFICATION=${{ steps.extract_version.outputs.VERSION_NOTIFICATION }}
-      #export VERSION_GROUP=${{ steps.extract_version.outputs.VERSION_GROUP }}
-      #export VERSION_PARTICIPANT=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
-      #export VERSION_MODERATOR=${{ steps.extract_version.outputs.VERSION_MODERATOR }}
+      #echo "VERSION_CONFIG_SERVER=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}
+      #echo "VERSION_DISCOVERY=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
+      #echo "VERSION_GATEWAY=${{ steps.extract_version.outputs.VERSION_GATEWAY }}
+      #echo "VERSION_NOTIFICATION=${{ steps.extract_version.outputs.VERSION_NOTIFICATION }}
+      #echo "VERSION_GROUP=${{ steps.extract_version.outputs.VERSION_GROUP }}
+      #echo "VERSION_PARTICIPANT=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
+      #echo "VERSION_MODERATOR=${{ steps.extract_version.outputs.VERSION_MODERATOR }}
       - name: Deploy by docker compose
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
-          export VPS_IP=${{ secrets.VPS_IP }}
-          export VERSION_CONFIG_SERVER=0.0.1-SNAPSHOT
-          export VERSION_DISCOVERY=0.0.1-SNAPSHOT
-          export VERSION_GATEWAY=0.0.1-SNAPSHOT
-          export VERSION_NOTIFICATION=0.0.1-SNAPSHOT
-          export VERSION_GROUP=0.0.1-SNAPSHOT
-          export VERSION_PARTICIPANT=0.0.1-SNAPSHOT
-          export VERSION_MODERATOR=1.0.0-SNAPSHOT
+          echo "VPS_IP=${{ secrets.VPS_IP }}" > .env
+          echo "VERSION_CONFIG_SERVER=0.0.1-SNAPSHOT" >> .env
+          echo "VERSION_DISCOVERY=0.0.1-SNAPSHOT" >> .env
+          echo "VERSION_GATEWAY=0.0.1-SNAPSHOT" >> .env
+          echo "VERSION_NOTIFICATION=0.0.1-SNAPSHOT" >> .env
+          echo "VERSION_GROUP=0.0.1-SNAPSHOT" >> .env
+          echo "VERSION_PARTICIPANT=0.0.1-SNAPSHOT" >> .env
+          echo "VERSION_MODERATOR=1.0.0-SNAPSHOT" >> .env
           cd deployment
           docker compose -f docker-compose.yml pull -q
           docker compose -f docker-compose.yml up -d
