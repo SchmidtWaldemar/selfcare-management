@@ -57,8 +57,11 @@ jobs:
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_UI_IP }} <<EOF
           export VERSION=0.0.0
-          export VPS_BACKEND_HOST=${{ secrets.VPS_IP }}
           cd deployment
+          echo "BACKEND_HOST=${{ secrets.VPS_IP }}" > .env-frontend
+          echo "BACKEND_PORT=8222" >> .env-frontend
+          echo "BACKEND_PROTOCOL_SCHEMA='http'" >> .env-frontend
+          echo "BACKEND_MODERATOR_PORT=8040" >> .env-frontend
           docker compose -f docker-compose-frontend.yml pull -q
           docker compose -f docker-compose-frontend.yml up -d
           EOF
