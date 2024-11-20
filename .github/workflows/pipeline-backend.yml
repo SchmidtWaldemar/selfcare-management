@@ -213,6 +213,7 @@ jobs:
       - name: Deploy by docker compose
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
+          cd deployment
           echo "VPS_IP=${{ secrets.VPS_IP }}" > .env
           echo "VERSION_CONFIG_SERVER=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}" >> .env
           echo "VERSION_DISCOVERY=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}" >> .env
@@ -221,7 +222,6 @@ jobs:
           echo "VERSION_GROUP=${{ steps.extract_version.outputs.VERSION_GROUP }}" >> .env
           echo "VERSION_PARTICIPANT=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}" >> .env
           echo "VERSION_MODERATOR=${{ steps.extract_version.outputs.VERSION_MODERATOR }}" >> .env
-          cd deployment
           docker compose -f docker-compose.yml pull -q
           docker compose -f docker-compose.yml up -d
           EOF
