@@ -15,7 +15,7 @@ on:
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
 
-variables:
+env:
   VERSION_CONFIG_SERVER: $(cd backend/config-server && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
   VERSION_DISCOVERY: $(cd ../discovery && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
   VERSION_GATEWAY: $(cd ../gateway && ./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)
