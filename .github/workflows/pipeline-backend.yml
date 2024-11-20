@@ -117,7 +117,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:${{ env.VERSION_CONFIG_SERVER }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-config-server-api:latest
           build-args: |
             PROFILE=dev
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}
+            APP_VERSION=${{ env.VERSION_CONFIG_SERVER }}
 
       - name: Build & Push discovery to DockerHub
         uses: docker/build-push-action@v5
@@ -127,10 +127,10 @@ jobs:
           push: true
           platforms: linux/amd64
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:${{ steps.extract_version.outputs.VERSION_DISCOVERY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:$(VERSION_DISCOVERY),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:${{ env.VERSION_DISCOVERY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-discovery-api:latest
           build-args: |
             PROFILE=dev
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}
+            APP_VERSION=${{ env.VERSION_DISCOVERY }}
 
       - name: Build & Push gateway to DockerHub
         uses: docker/build-push-action@v5
@@ -140,10 +140,10 @@ jobs:
           push: true
           platforms: linux/amd64
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:${{ steps.extract_version.outputs.VERSION_GATEWAY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:$(VERSION_GATEWAY),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:${{ env.VERSION_GATEWAY }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-gateway-api:latest
           build-args: |
             PROFILE=docker
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_GATEWAY }}
+            APP_VERSION=${{ env.VERSION_GATEWAY }}
 
       - name: Build & Push notification to DockerHub
         uses: docker/build-push-action@v5
@@ -153,10 +153,10 @@ jobs:
           push: true
           platforms: linux/amd64
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:${{ steps.extract_version.outputs.VERSION_NOTIFICATION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:$(VERSION_NOTIFICATION),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:${{ env.VERSION_NOTIFICATION }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-notification-api:latest
           build-args: |
             PROFILE=docker
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_NOTIFICATION }}
+            APP_VERSION=${{ env.VERSION_NOTIFICATION }}
 
       - name: Build & Push group to DockerHub
         uses: docker/build-push-action@v5
@@ -166,10 +166,10 @@ jobs:
           push: true
           platforms: linux/amd64
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:${{ steps.extract_version.outputs.VERSION_GROUP }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:$(VERSION_GROUP),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:${{ env.VERSION_GROUP }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-group-api:latest
           build-args: |
             PROFILE=docker
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_GROUP }}
+            APP_VERSION=${{ env.VERSION_GROUP }}
 
       - name: Build & Push participant to DockerHub
         uses: docker/build-push-action@v5
@@ -179,10 +179,10 @@ jobs:
           push: true
           platforms: linux/amd64
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ steps.extract_version.outputs.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:$(VERSION_PARTICIPANT),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:${{ env.VERSION_PARTICIPANT }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-participant-api:latest
           build-args: |
             PROFILE=docker
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_PARTICIPANT }}
+            APP_VERSION=${{ env.VERSION_PARTICIPANT }}
 
       - name: Build & Push moderator to DockerHub
         uses: docker/build-push-action@v5
@@ -192,10 +192,10 @@ jobs:
           push: true
           platforms: linux/amd64
           #tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ steps.extract_version.outputs.VERSION_MODERATOR }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:$(VERSION_MODERATOR),${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:${{ env.VERSION_MODERATOR }},${{ secrets.DOCKERHUB_USERNAME }}/selfcare-moderator-api:latest
           build-args: |
             PROFILE=dev
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION_MODERATOR }}
+            APP_VERSION=${{ env.VERSION_MODERATOR }}
   
   deploy:
     name: Deploy Backend Microservices
