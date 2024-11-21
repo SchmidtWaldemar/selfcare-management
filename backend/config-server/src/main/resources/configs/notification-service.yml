@@ -3,7 +3,7 @@ spring:
     mongodb:
       username: selfcare
       password: selfcare
-      host: localhost
+      host: ${BACKEND_HOST}
       posrt: 27017
       database: notification
       authentication-database: admin
