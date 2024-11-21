@@ -178,6 +178,7 @@ jobs:
           build-args: |
             PROFILE=dev
             BACKEND_DOMAIN=${{ secrets.VPS_IP }}
+            FRONTEND_DOMAIN=${{ secrets.VPS_UI_IP }}
   
   deploy:
     name: Deploy Backend Microservices
@@ -218,6 +219,7 @@ jobs:
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
           cd deployment
           echo "VPS_IP=${{ secrets.VPS_IP }}" > .env
+          echo "VPS_UI_IP=${{ secrets.VPS_UI_IP }}" >> .env
           echo "VERSION_CONFIG_SERVER=${{ steps.extract_version.outputs.VERSION_CONFIG_SERVER }}" >> .env
           echo "VERSION_DISCOVERY=${{ steps.extract_version.outputs.VERSION_DISCOVERY }}" >> .env
           echo "VERSION_GATEWAY=${{ steps.extract_version.outputs.VERSION_GATEWAY }}" >> .env

@@ -82,6 +82,7 @@ FROM registry.access.redhat.com/ubi8/openjdk-21:1.20
 ENV LANGUAGE='de_DE:de'
 
 ARG BACKEND_DOMAIN=localhost
+ARG FRONTEND_DOMAIN=localhost
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
 COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
@@ -95,6 +96,7 @@ ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=or
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
 ENV BACKEND_HOST=${BACKEND_DOMAIN}
+ENV FRONTEND_HOST=${FRONTEND_DOMAIN}
 
 ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
 
