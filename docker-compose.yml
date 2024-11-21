@@ -37,7 +37,7 @@ services:
 
   mongodb:
     container_name: selfcare_mongo_db
-    image: mongo
+    image: mongo:4.4.18
     environment:
       - MONGO_INITDB_ROOT_USERNAME=selfcare
       - MONGO_INITDB_ROOT_PASSWORD=selfcare

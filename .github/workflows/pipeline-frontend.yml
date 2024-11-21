@@ -62,8 +62,8 @@ jobs:
           export VERSION=${{ steps.extract_version.outputs.VERSION }}
           cd deployment
           echo "VERSION=${{ steps.extract_version.outputs.VERSION }}" > .env
-          echo "BACKEND_HOST=${{ secrets.VPS_IP }}" >> .env
           echo "FRONTEND_DOMAIN=${{ secrets.VPS_UI_IP }}" >> .env
+          echo "BACKEND_HOST=${{ secrets.VPS_IP }}" >> .env
           echo "BACKEND_PORT=8222" >> .env
           echo "BACKEND_PROTOCOL_SCHEMA='http'" >> .env
           echo "BACKEND_MODERATOR_PORT=8040" >> .env
