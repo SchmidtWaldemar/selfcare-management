@@ -8,10 +8,15 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-alpine
 
+# pipeline overrides this variable
+ARG BACKEND_DOMAIN=localhost
+
 WORKDIR /app
 COPY --from=build /build/target/*.jar app.jar
 
 EXPOSE 8030
+
+ENV BACKEND_HOST=${BACKEND_DOMAIN}
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

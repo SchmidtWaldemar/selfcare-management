@@ -10,7 +10,7 @@ spring:
   kafka:
     consumer:
       #bootstrap-servers: selfcare_kafka:9092
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${BACKEND_HOST}:9092
       group-id: participantGroup,groupId,moderatorGroup
       #group-id: participantGroup,groupId
       auto-offset-reset: earliest
@@ -25,8 +25,8 @@ spring:
         #spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
 
   mail:
-    host: localhost
-    #host: 0.0.0.0
+    host: ${BACKEND_HOST}
+    #host: localhost
     port: 1025
     username: selfcare
     password: selfcare

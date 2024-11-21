@@ -11,7 +11,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${BACKEND_HOST}:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
@@ -20,7 +20,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: "http://192.168.178.157:7080/realms/selfcare-management"
+          issuer-uri: "http://${BACKEND_HOST}:7080/realms/selfcare-management"
 
 server:
   port: 8010
@@ -29,12 +29,12 @@ openapi:
   service:
     title: openapi for participant-service
     version: 1.0
-    url: http://192.168.178.157:8222
+    url: http://${BACKEND_HOST}:8222
     description: API zum verwalten von Teilnehmern
     licenceName: MIT license
     licenceUrl: https://github.com/SchmidtWaldemar/selfcare-management?tab=MIT-1-ov-file
     disclaimer: fuer die Inhalte wird keine Haftung uebernommen
-    keycloakConnectionUrl: http://192.168.178.157:7080/realms/selfcare-management/protocol/openid-connect/auth
+    keycloakConnectionUrl: http://${BACKEND_HOST}:7080/realms/selfcare-management/protocol/openid-connect/auth
 
 springdoc:
   api-docs:

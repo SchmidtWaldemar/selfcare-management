@@ -12,12 +12,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { TokenInterceptor } from './interceptor/token-interceptor';
 import { ModeratorComponent } from './pages/moderator/moderator.component';
+import { environment } from '../environments/environment';
 
 export function initializeKeycloak(keycloakService: KeycloakService) {
   return () => keycloakService.init({
     config: {
       //url: 'http://localhost:7080',
-      url: 'http://192.168.178.157:7080',
+      url: environment.backendProtocolSchema + '://' + environment.backendHost + ':' + environment.backendKeycloakPort,
       realm: 'selfcare-management',
       clientId: 'selfcare'
     },

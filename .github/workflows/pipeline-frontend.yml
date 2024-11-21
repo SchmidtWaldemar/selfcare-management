@@ -23,7 +23,6 @@ jobs:
         run: |
           cd frontend/
           echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
-        #echo "VERSION=0.0.0" >> $GITHUB_OUTPUT
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -45,6 +44,11 @@ jobs:
     runs-on: self-hosted
     needs: [ build-image ]
     steps:
+      - name: fetch version of project
+        id: extract_version
+        run: |
+          cd frontend/
+          echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
 
       - name: Create deployment folder
         run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_UI_IP }} "mkdir -p deployment"
@@ -55,12 +59,14 @@ jobs:
       - name: Deploy on remote Host
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_UI_IP }} <<EOF
-          export VERSION=0.0.0
+          export VERSION=${{ steps.extract_version.outputs.VERSION }}
           cd deployment
-          echo "BACKEND_HOST=${{ secrets.VPS_IP }}" > .env-frontend
-          echo "BACKEND_PORT=8222" >> .env-frontend
-          echo "BACKEND_PROTOCOL_SCHEMA='http'" >> .env-frontend
-          echo "BACKEND_MODERATOR_PORT=8040" >> .env-frontend
+          echo "VERSION=${{ steps.extract_version.outputs.VERSION }}" > .env
+          echo "BACKEND_HOST=${{ secrets.VPS_IP }}" > .env
+          echo "BACKEND_PORT=8222" >> .env
+          echo "BACKEND_PROTOCOL_SCHEMA='http'" >> .env
+          echo "BACKEND_MODERATOR_PORT=8040" >> .env
+          echo "BACKEND_KEYCLOAK_PORT=7080" >> .env
           docker compose -f docker-compose-frontend.yml pull -q
           docker compose -f docker-compose-frontend.yml up -d
           EOF
