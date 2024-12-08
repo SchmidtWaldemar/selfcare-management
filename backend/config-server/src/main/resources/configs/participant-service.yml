@@ -1,6 +1,5 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/participantDB
     username: postgres
     password: selfcare
     driver-class-name: org.postgresql.Driver
@@ -11,16 +10,10 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   kafka:
     producer:
-      bootstrap-servers: ${BACKEND_HOST}:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.type.mapping: participantMessage:com.platform.selfcare.kafka.ParticipantNotification
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: "http://${BACKEND_HOST}:7080/realms/selfcare-management"
 
 server:
   port: 8010
@@ -29,12 +22,10 @@ openapi:
   service:
     title: openapi for participant-service
     version: 1.0
-    url: http://${BACKEND_HOST}:8222
     description: API zum verwalten von Teilnehmern
     licenceName: MIT license
     licenceUrl: https://github.com/SchmidtWaldemar/selfcare-management?tab=MIT-1-ov-file
     disclaimer: fuer die Inhalte wird keine Haftung uebernommen
-    keycloakConnectionUrl: http://${BACKEND_HOST}:7080/realms/selfcare-management/protocol/openid-connect/auth
 
 springdoc:
   api-docs:

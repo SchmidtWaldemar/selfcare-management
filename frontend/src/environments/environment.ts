@@ -8,6 +8,8 @@ export const environment = {
         window[<any>'env'][<any>'backendProtocolSchema'] || 'http',
     backendModeratorPort:  
         window[<any>'env'][<any>'backendModeratorPort'] || 8040,
+    backendKeycloakHost:  
+        window[<any>'env'][<any>'backendKeycloakHost'] || 'localhost',
     backendKeycloakPort:  
-        window[<any>'env'][<any>'backendKeycloakPort'] || 7080    
+        window[<any>'env'][<any>'backendKeycloakPort'] || 7080
 };

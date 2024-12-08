@@ -1,0 +1,16 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+  mail:
+    host: localhost
+  data:
+    mongodb:
+      host: localhost
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

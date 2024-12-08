@@ -3,30 +3,20 @@ spring:
     mongodb:
       username: selfcare
       password: selfcare
-      host: localhost
-      posrt: 27017
+      port: 27017
       database: notification
       authentication-database: admin
   kafka:
     consumer:
-      #bootstrap-servers: selfcare_kafka:9092
-      bootstrap-servers: ${BACKEND_HOST}:9092
       group-id: participantGroup,groupId,moderatorGroup
-      #group-id: participantGroup,groupId
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      #value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      #value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
         spring.json.trusted.packages: '*'
         spring.json.type.mapping: participantMessage:com.platform.selfcare.kafka.participant.ParticipantMessage,groupMessage:com.platform.selfcare.kafka.group.GroupMessage,moderatorMessage:com.platform.selfcare.kafka.moderator.ModeratorMessage
-        #spring.json.type.mapping: participantMessage:com.platform.selfcare.kafka.participant.ParticipantMessage,groupMessage:com.platform.selfcare.kafka.group.GroupMessage
-        #spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
 
   mail:
-    host: ${BACKEND_HOST}
-    #host: localhost
     port: 1025
     username: selfcare
     password: selfcare
@@ -40,6 +30,13 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
 
 server:
   port: 8030

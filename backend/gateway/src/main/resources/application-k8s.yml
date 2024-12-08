@@ -1,0 +1,12 @@
+spring:
+  config:
+    import: optional:configserver:http://config.selfcare.svc.cluster.local:8888
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://keycloak.selfcare.svc.cluster.local:7080/realms/selfcare-management"
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery.selfcare.svc.cluster.local:8761/eureka

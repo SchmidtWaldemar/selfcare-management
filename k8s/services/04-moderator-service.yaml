@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: moderator
+  name: moderator
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderator
+  template:
+    metadata:
+      labels:
+        app: moderator
+    spec:
+      containers:
+      - image: schmidtwaldemar/selfcare-moderator-k8s:latest
+        name: moderator
+        ports:
+        - containerPort: 8040
+          name: moderator
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: moderator
+  name: moderator
+  namespace: selfcare
+spec:
+  type: NodePort
+  ports:
+  - name: "moderator-service"
+    port: 8040
+    targetPort: 8040
+  selector:
+    app: moderator
+  

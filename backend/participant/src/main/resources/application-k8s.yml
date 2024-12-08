@@ -1,0 +1,24 @@
+spring:
+  config:
+    import: optional:configserver:http://config.selfcare.svc.cluster.local:8888
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://keycloak.selfcare.svc.cluster.local:7080/realms/selfcare-management"
+  datasource:
+    url: jdbc:postgresql://postgres.selfcare.svc.cluster.local:5432/participantDB
+  kafka:
+    producer:
+      bootstrap-servers: kafka-service.selfcare.svc.cluster.local:9092
+    bootstrap-servers: kafka-service.selfcare.svc.cluster.local:9092
+
+openapi:
+  service:
+    url: http://gateway.selfcare.svc.cluster.local:8222
+    keycloakConnectionUrl: http://keycloak.selfcare.svc.cluster.local:7080/realms/selfcare-management/protocol/openid-connect/auth
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery.selfcare.svc.cluster.local:8761/eureka

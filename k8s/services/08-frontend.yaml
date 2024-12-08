@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: schmidtwaldemar/selfcare-frontend-k8s:latest
+        name: frontend
+        ports:
+        - containerPort: 80
+          name: frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+  namespace: selfcare
+spec:
+  type: NodePort
+  ports:
+  - name: "frontend-service"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: frontend
+  

@@ -3,8 +3,8 @@ spring:
     gateway:
       discovery:
         locator:
-          #enabled: true
           enabled: false
+          lowerCaseServiceId: true
       globalcors:
         add-to-simple-url-handler-mapping: true
       routes:
@@ -32,9 +32,6 @@ spring:
                 - POST
               allowedHeaders: '*'
               maxAge: 30
-  #security:
-    #cors:
-      #origin: http://192.168.178.157:8222/,http://192.168.178.157:7080/,http://localhost:4200/
 
 logging:
   level:
@@ -62,9 +59,3 @@ springdoc:
       - url: /participant-service/v3/api-docs
         name: Participant Service
         primaryName: Participant Service
-
-eureka:
-  client:
-    serviceUrl:
-      #defaultZone: http://selfcare-discovery:8761/eureka
-      defaultZone: http://localhost:8761/eureka

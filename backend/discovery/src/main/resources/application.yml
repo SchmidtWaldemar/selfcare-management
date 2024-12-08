@@ -1,8 +1,9 @@
 spring:
   application:
     name: discovery-service
-  config:
-    import: optional:configserver:http://localhost:8888
+  profiles:
+    active:
+    - @activatedProperties@
   security:
     user:
       name: eureka

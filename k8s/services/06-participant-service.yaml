@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: participant
+  name: participant
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: participant
+  template:
+    metadata:
+      labels:
+        app: participant
+    spec:
+      containers:
+      - image: schmidtwaldemar/selfcare-participant-k8s:latest
+        name: participant
+        ports:
+        - containerPort: 8010
+          name: participant
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: participant
+  name: participant
+  namespace: selfcare
+spec:
+  type: NodePort
+  ports:
+  - name: "participant-service"
+    port: 8010
+    targetPort: 8010
+  selector:
+    app: participant
+  

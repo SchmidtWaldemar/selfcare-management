@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway
+  name: gateway
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+      namespace: selfcare
+    spec:
+      containers:
+      - image: schmidtwaldemar/selfcare-gateway-2-k8s:latest
+        name: gateway
+        ports:
+        - containerPort: 8222
+          name: gateway
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gateway
+  name: gateway
+  namespace: selfcare
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    name: "gateway-service"
+    port: 8222
+    targetPort: 8222
+  selector:
+    app: gateway
+  

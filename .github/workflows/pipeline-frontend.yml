@@ -67,6 +67,7 @@ jobs:
           echo "BACKEND_PORT=8222" >> .env
           echo "BACKEND_PROTOCOL_SCHEMA='http'" >> .env
           echo "BACKEND_MODERATOR_PORT=8040" >> .env
+          echo "BACKEND_KEYCLOAK_HOST=${{ secrets.VPS_IP }}" >> .env
           echo "BACKEND_KEYCLOAK_PORT=7080" >> .env
           docker compose -f docker-compose-frontend.yml pull -q
           docker compose -f docker-compose-frontend.yml up -d

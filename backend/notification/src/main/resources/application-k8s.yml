@@ -1,0 +1,16 @@
+spring:
+  config:
+    import: optional:configserver:http://config.selfcare.svc.cluster.local:8888
+  mail:
+    host: maildev.selfcare.svc.cluster.local
+  data:
+    mongodb:
+      host: mongo.selfcare.svc.cluster.local
+  kafka:
+    consumer:
+      bootstrap-servers: kafka-service.selfcare.svc.cluster.local:9092
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery.selfcare.svc.cluster.local:8761/eureka

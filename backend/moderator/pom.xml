@@ -16,6 +16,9 @@
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.3.1</surefire-plugin.version>
         <org.projectlombok.version>1.18.34</org.projectlombok.version>
+        <jkube.version>1.17.0</jkube.version>
+        <projectVersion>${project.version}</projectVersion>
+        <jkube.generator.name>schmidtwaldemar/selfcare-${project.artifactId}-${activatedProperties}:${projectVersion}</jkube.generator.name>
     </properties>
 
     <dependencyManagement>
@@ -150,6 +153,19 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>${jkube.version}</version>
+                <configuration>
+                    <authConfig>
+                    <push>
+                        <username>${env.DOCKER_HUB_USER}</username>
+                        <password>${env.DOCKER_HUB_PASSWORD}</password>
+                    </push>
+                    </authConfig>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -166,5 +182,11 @@
                 <quarkus.native.enabled>true</quarkus.native.enabled>
             </properties>
         </profile>
+        <profile>
+			<id>k8s</id>
+			<properties>
+				<activatedProperties>k8s</activatedProperties>
+			</properties>
+		</profile>
     </profiles>
 </project>

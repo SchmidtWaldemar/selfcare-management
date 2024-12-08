@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - image: postgres:latest
+        name: selfcare-postgres
+        env:
+        - name: POSTGRES_DB
+          value: participantDB
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: selfcare
+        - name: PGDATA
+          value: /var/lib/postgressql/data
+        ports:
+        - containerPort: 5432
+          name: postgres
+        volumeMounts:
+        - mountPath: /var/lib/postgressql/data
+          name: db-data
+      volumes:
+      - name: db-data
+        emptyDir: {} 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+  namespace: selfcare
+spec:
+  type: ClusterIP
+  ports:
+  - name: "postgres-service"
+    port: 5432
+    targetPort: 5432
+  selector:
+    app: postgres
+  

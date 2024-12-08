@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: group
+  name: group
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: group
+  template:
+    metadata:
+      labels:
+        app: group
+    spec:
+      containers:
+      - image: schmidtwaldemar/selfcare-group-k8s:latest
+        name: group
+        ports:
+        - containerPort: 8020
+          name: group
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: group
+  name: group
+  namespace: selfcare
+spec:
+  type: NodePort
+  ports:
+  - name: "group-service"
+    port: 8020
+    targetPort: 8020
+  selector:
+    app: group

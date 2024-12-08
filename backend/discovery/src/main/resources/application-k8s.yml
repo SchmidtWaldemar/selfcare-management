@@ -1,0 +1,7 @@
+spring:
+  config:
+    import: optional:configserver:http://config.selfcare.svc.cluster.local:8888
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery.selfcare.svc.cluster.local:8761/eureka

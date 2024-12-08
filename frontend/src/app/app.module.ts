@@ -17,8 +17,7 @@ import { environment } from '../environments/environment';
 export function initializeKeycloak(keycloakService: KeycloakService) {
   return () => keycloakService.init({
     config: {
-      //url: 'http://localhost:7080',
-      url: environment.backendProtocolSchema + '://' + environment.backendHost + ':' + environment.backendKeycloakPort,
+      url: environment.backendProtocolSchema + '://' + environment.backendKeycloakHost + ':' + environment.backendKeycloakPort,
       realm: 'selfcare-management',
       clientId: 'selfcare'
     },

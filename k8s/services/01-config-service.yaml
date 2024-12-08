@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: config
+  name: config
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config
+  template:
+    metadata:
+      labels:
+        app: config
+    spec:
+      containers:
+      - image: schmidtwaldemar/selfcare-config-server-api:latest
+        name: config
+        ports:
+        - containerPort: 8888
+          name: config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: config
+  name: config
+  namespace: selfcare
+spec:
+  type: NodePort
+  ports:
+  - name: "config-service"
+    port: 8888
+    targetPort: 8888
+  selector:
+    app: config

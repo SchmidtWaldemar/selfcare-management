@@ -5,7 +5,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
 
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -DactivatedProperties=dev
 
 FROM openjdk:17-jdk-alpine
 
@@ -22,4 +22,4 @@ EXPOSE 8020
 ENV BACKEND_HOST=${BACKEND_DOMAIN}
 
 # Run the application
-ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-DactivatedProperties=dev", "-jar", "app.jar"]

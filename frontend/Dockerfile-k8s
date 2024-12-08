@@ -1,0 +1,31 @@
+FROM node:18 as build
+
+COPY  package.json package-lock.json /app/
+COPY  src /app/
+COPY  keycloak /app/
+
+WORKDIR /app
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build --prod
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+
+EXPOSE 8080
+
+ENV BACKEND_HOST=localhost
+ENV BACKEND_PORT=8222
+ENV BACKEND_PROTOCOL_SCHEMA=http
+ENV BACKEND_MODERATOR_PORT=8040
+ENV BACKEND_KEYCLOAK_HOST=keycloak.selfcare.svc.cluster.local
+ENV BACKEND_KEYCLOAK_PORT=7080
+
+# environment variables by using kubernetes
+CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.sample.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]

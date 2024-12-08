@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: notification
+  name: notification
+  namespace: selfcare
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification
+  template:
+    metadata:
+      labels:
+        app: notification
+    spec:
+      containers:
+      - image: schmidtwaldemar/selfcare-notification-k8s:latest
+        name: notification
+        ports:
+        - containerPort: 8030
+          name: notification
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: notification
+  name: notification
+  namespace: selfcare
+spec:
+  type: NodePort
+  ports:
+  - name: "notification-service"
+    port: 8030
+    targetPort: 8030
+  selector:
+    app: notification
+  
